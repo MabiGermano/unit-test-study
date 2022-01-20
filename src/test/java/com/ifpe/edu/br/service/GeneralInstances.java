@@ -1,3 +1,5 @@
+package com.ifpe.edu.br.service;
+
 import com.ifpe.edu.br.models.*;
 import com.ifpe.edu.br.models.Package;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,11 +24,17 @@ public class GeneralInstances {
             .number("24")
             .zipcode("15822987").build();
 
+    Package aPackage1 = Package.builder()
+            .code('1')
+            .value(49.90)
+            .description("Pacote Viagem + Certificado")
+            .build();
 
     User user1 = User.builder()
                 .address(address1)
                 .email("mbges@discente.ifpe.edu.br")
                 .name("Maria")
+            .aPackage(aPackage1)
                 .birthDate(new Date("06/03/1997"))
             .bioDescription("estudante de Análise e desenvolvimento de sistemas")
                 .identityRegistration("58965986536")
@@ -58,12 +66,6 @@ public class GeneralInstances {
             .situation('0')
             .workTimeAtWeek(40)
             .user(user1).build();
-
-    Package aPackage1 = Package.builder()
-            .code('1')
-            .value(49.90)
-            .description("Pacote Viagem + Certificado")
-            .build();
 
     CandidateVacancy candidateVacancy1 = CandidateVacancy.builder()
             .description("Estou de férias do trabalho e gostaria de conhecer sua empresa")

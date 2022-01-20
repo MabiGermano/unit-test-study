@@ -1,5 +1,6 @@
 package com.ifpe.edu.br.models;
 
+import com.ifpe.edu.br.models.exceptions.UserHasNotPackageException;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

@@ -30,4 +30,8 @@ public class UserRepository {
     public User getById(int id){
         return users.get(id);
     }
+
+    public void update(User user) {
+        users.add(user.getId(), user);
+    }
 }
