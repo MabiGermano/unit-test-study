@@ -1,5 +1,6 @@
 package com.ifpe.edu.br.models;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,6 +8,7 @@ import java.util.Date;
 
 @Getter
 @Setter
+@Builder
 public class CandidateVacancy {
     private int id;
     private User user;
@@ -15,5 +17,14 @@ public class CandidateVacancy {
     private Date startDate;
     private Date endDate;
     private String description;
-    private Certificate certificate;
+
+    public String getCertificateNote() {
+        StringBuilder certificateNote = new StringBuilder("Certificado de cumprimento de atividade");
+        certificateNote.append("/n");
+        certificateNote.append("Atesto para devidos fins que ");
+        certificateNote.append(this.user.getName());
+        certificateNote.append("prestou serviço voluntário no cumprimento de atividades em ");
+        certificateNote.append(this.hostingVacancy.getDescription());
+        return certificateNote.toString();
+    }
 }
