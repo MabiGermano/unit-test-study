@@ -9,13 +9,14 @@ public class HostingVacancyRepository {
 
     private List<HostingVacancy> hostingVacancies;
 
-    private HostingVacancyRepository hostingVacancyRepository;
+    private static HostingVacancyRepository hostingVacancyRepository;
 
-    private HostingVacancyRepository(){}
+    private HostingVacancyRepository(){
+        hostingVacancies = new ArrayList<>();
+    }
 
-    public HostingVacancyRepository getInstance(){
+    public static HostingVacancyRepository getInstance(){
         if(hostingVacancyRepository == null){
-            hostingVacancies = new ArrayList<>();
             hostingVacancyRepository = new HostingVacancyRepository();
         }
         return hostingVacancyRepository;

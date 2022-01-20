@@ -9,13 +9,14 @@ public class CandidateVacancyRepository {
 
     private List<CandidateVacancy> candidateVacancies;
 
-    private CandidateVacancyRepository candidateVacancyRepository;
+    private static CandidateVacancyRepository candidateVacancyRepository;
 
-    private CandidateVacancyRepository(){}
+    private CandidateVacancyRepository(){
+        candidateVacancies = new ArrayList<>();
+    }
 
-    public CandidateVacancyRepository getInstance(){
+    public static CandidateVacancyRepository getInstance(){
         if(candidateVacancyRepository == null){
-            candidateVacancies = new ArrayList<>();
             candidateVacancyRepository = new CandidateVacancyRepository();
         }
         return candidateVacancyRepository;

@@ -9,13 +9,14 @@ public class PackageRepository {
 
     private List<Package> packages;
 
-    private PackageRepository packageRepository;
+    private static PackageRepository packageRepository;
 
-    private PackageRepository(){}
+    private PackageRepository(){
+        packages = new ArrayList<>();
+    }
 
-    public PackageRepository getInstance(){
+    public static PackageRepository getInstance(){
         if(packageRepository == null){
-            packages = new ArrayList<>();
             packageRepository = new PackageRepository();
         }
         return packageRepository;

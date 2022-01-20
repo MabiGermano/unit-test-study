@@ -9,14 +9,15 @@ public class AddressRepository {
 
     private List<Address> addresses;
 
-    private AddressRepository addressRepository;
+    private static AddressRepository addressRepository;
 
-    private AddressRepository(){}
+    private AddressRepository(){
+        addresses = new ArrayList<>();
+    }
 
-    public AddressRepository getInstance(){
+    public static AddressRepository getInstance(){
         if (addressRepository == null){
             addressRepository = new AddressRepository();
-            addresses = new ArrayList<>();
         }
         return addressRepository;
     }
