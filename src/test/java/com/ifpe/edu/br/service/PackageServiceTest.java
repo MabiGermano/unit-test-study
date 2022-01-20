@@ -21,7 +21,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class PackageServiceTest {
 
     GeneralInstances instances = new GeneralInstances();
-    PackageServiceImpl packageService = new PackageServiceImpl();
+    ExternalAPI eApi = Mockito.mock(ExternalAPI.class);
+    PackageServiceImpl packageService = new PackageServiceImpl(eApi);
+
 
     @BeforeEach
     public void setUp() {
@@ -70,8 +72,6 @@ class PackageServiceTest {
 
     @Test
     public void buyAPackageWithNoLimitCreditCard() {
-        ExternalAPI eApi = Mockito.spy(new ExternalAPI());
-        
         Mockito.doReturn(false).when(eApi).checkLimit(
                 Mockito.any(CreditCardCredentials.class));
 

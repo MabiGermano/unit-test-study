@@ -13,7 +13,12 @@ import java.util.Date;
 
 public class PackageServiceImpl implements PackageService {
 
-    private ExternalAPI externalAPI = new ExternalAPI();
+    private ExternalAPI externalAPI;
+
+    public PackageServiceImpl(){}
+    public  PackageServiceImpl(ExternalAPI externalAPI){
+        this.externalAPI = externalAPI;
+    }
 
     @Override
     public String generateBillToPay(Package aPackage) {
