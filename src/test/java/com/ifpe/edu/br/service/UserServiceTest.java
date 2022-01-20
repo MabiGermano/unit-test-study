@@ -2,6 +2,11 @@ package com.ifpe.edu.br.service;
 
 import com.ifpe.edu.br.models.Address;
 import com.ifpe.edu.br.models.User;
+import com.ifpe.edu.br.models.exceptions.EmailException;
+import com.ifpe.edu.br.models.exceptions.PasswordException;
+import com.ifpe.edu.br.repository.UserRepository;
+import com.ifpe.edu.br.service.impl.UserServiceImpl;
+import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 
@@ -9,23 +14,57 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserServiceTest {
 
-    private User criarUsuario(){
-        Address address = Address.builder().city("Recife")
-                .country("Brasil")
-                .district("dos bobos")
-                .street("Rua dos bobos")
-                .state("PE")
-                .number("11")
-                .zipcode("25698965").build();
+    private UserServiceImpl userService = new UserServiceImpl();
 
-        return User.builder()
-                .address(address)
-                .email("mbges@discente.ifpe.edu.br")
-                .name("Maria")
-                .birthDate(new Date("06/03/1997"))
-                .bioDescription("estudante de Análise e desenvolvimento de sistemas")
-                .identityRegistration("58965986536")
-                .password("ZSE$xdr5").build();
+    @Test
+    public void deveCriarUsuarioCorretamente(){
+        User usuarioMock = UserRepository.getInstance().getById(0);
+        userService.criarUsuario(usuarioMock);
+        User usuarioPersist = UserRepository.getInstance().getById(0);
+
+        assertNotNull(usuarioPersist);
+        assertEquals(usuarioMock.getAddress(), usuarioPersist.getAddress());
+        assertEquals(usuarioMock.getName(), usuarioPersist.getName());
     }
 
+    @Test
+    public void deveDarErroAoCriarUsuarioSenhaComMenosDe8Caracteres(){
+        User usuarioMock = UserRepository.getInstance().getById(0);
+        PasswordException passwordException = assertThrows(PasswordException.class, () -> userService.criarUsuario(usuarioMock));
+
+        assertEquals(passwordException.getMessage(), "Senha com menos de 8 caracteres");
+    }
+
+    @Test
+    public void deveDarErroAoCriarUsuarioSenhaComMaisDe64Caracteres(){
+        User usuarioMock = UserRepository.getInstance().getById(0);
+        PasswordException passwordException = assertThrows(PasswordException.class, () -> userService.criarUsuario(usuarioMock));
+
+        assertEquals(passwordException.getMessage(), "Senha com mais de 64 caracteres");
+    }
+
+    @Test
+    public void deveDarErroAoCriarUsuarioSenhaSemLetraNaSenha(){
+        User usuarioMock = UserRepository.getInstance().getById(0);
+        PasswordException passwordException = assertThrows(PasswordException.class, () -> userService.criarUsuario(usuarioMock));
+
+        assertEquals(passwordException.getMessage(), "Senha não contém letra");
+    }
+
+    @Test
+    public void deveDarErroAoCriarUsuarioSenhaSemNumeroNaSenha(){
+        User usuarioMock = UserRepository.getInstance().getById(0);
+        PasswordException passwordException = assertThrows(PasswordException.class, () -> userService.criarUsuario(usuarioMock));
+
+        assertEquals(passwordException.getMessage(), "Senha não contém número");
+    }
+
+    @Test
+    public void deveDarErroAoCriarUsuarioSenhaSemEmail(){
+        User usuarioMock = UserRepository.getInstance().getById(0);
+        EmailException emailException = assertThrows(EmailException.class, () -> userService.criarUsuario(usuarioMock));
+
+        assertEquals(emailException.getMessage(), "Usuário não contém email");
+        assertNull(usuarioMock.getEmail());
+    }
 }

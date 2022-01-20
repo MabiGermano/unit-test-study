@@ -9,13 +9,14 @@ public class UserRepository {
 
     private List<User> users;
 
-    private UserRepository userRepository;
+    private static UserRepository userRepository;
 
-    private UserRepository(){}
+    private UserRepository(){
+        users = new ArrayList<>();
+    }
 
-    public UserRepository getInstance(){
+    public static UserRepository getInstance(){
         if(userRepository == null){
-            users = new ArrayList<>();
             userRepository = new UserRepository();
         }
         return userRepository;
