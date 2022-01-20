@@ -80,4 +80,11 @@ public class GeneralInstances {
             .situation('0')
             .user(user2)
             .hostingVacancy(hostingVacancy1).build();
+
+    CreditCardCredentials credentials = CreditCardCredentials.builder()
+            .number("2569352698569847")
+            .holder("Maria Joana da Silva")
+            .dueDate(new Date("01/09/2030"))
+            .cvv("123")
+            .build();
 }
