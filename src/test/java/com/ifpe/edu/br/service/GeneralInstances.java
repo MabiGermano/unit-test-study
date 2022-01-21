@@ -67,6 +67,14 @@ public class GeneralInstances {
             .workTimeAtWeek(40)
             .user(user1).build();
 
+    HostingVacancy hostingVacancy3 = HostingVacancy.builder()
+            .address(address1)
+            .description("Hotelzinho para cães e gatos em Recife")
+            .maxWeek(10)
+            .minWeek(4)
+            .situation('0')
+            .workTimeAtWeek(40).build();
+
     CandidateVacancy candidateVacancy1 = CandidateVacancy.builder()
             .description("Estou de férias do trabalho e gostaria de conhecer sua empresa")
             .startDate(new Date("15/03/2022"))

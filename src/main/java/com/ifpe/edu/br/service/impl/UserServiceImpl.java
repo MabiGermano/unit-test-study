@@ -7,7 +7,10 @@ import com.ifpe.edu.br.models.exceptions.PasswordException;
 import com.ifpe.edu.br.repository.UserRepository;
 import com.ifpe.edu.br.service.UserService;
 
+import java.util.List;
+
 public class UserServiceImpl implements UserService {
+
     @Override
     public void criarUsuario(User user) throws RuntimeException {
         validaSenha(user.getPassword());

@@ -30,4 +30,8 @@ public class HostingVacancyRepository {
     public HostingVacancy getById(int id){
         return hostingVacancies.get(id);
     }
+
+    public void update(HostingVacancy hostingVacancy){
+        hostingVacancies.add(hostingVacancy.getId(), hostingVacancy);
+    }
 }
