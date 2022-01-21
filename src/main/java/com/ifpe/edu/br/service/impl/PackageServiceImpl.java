@@ -5,6 +5,7 @@ import com.ifpe.edu.br.models.CreditCardCredentials;
 import com.ifpe.edu.br.models.Package;
 import com.ifpe.edu.br.models.User;
 import com.ifpe.edu.br.models.exceptions.CardDoesNotHaveLimitException;
+import com.ifpe.edu.br.models.exceptions.WrongCreditCardCredentialsException;
 import com.ifpe.edu.br.repository.UserRepository;
 import com.ifpe.edu.br.service.PackageService;
 
@@ -13,13 +14,13 @@ import java.util.Date;
 
 public class PackageServiceImpl implements PackageService {
 
-    private ExternalAPI externalAPI;
+    private ExternalAPI externalAPI = new ExternalAPI();
 
     public PackageServiceImpl(){}
-    public  PackageServiceImpl(ExternalAPI externalAPI){
+
+    public PackageServiceImpl(ExternalAPI externalAPI){
         this.externalAPI = externalAPI;
     }
-
     @Override
     public String generateBillToPay(Package aPackage) {
 
@@ -43,6 +44,8 @@ public class PackageServiceImpl implements PackageService {
 
     @Override
     public void buyWithCreditCard(User user, Package aPackage, CreditCardCredentials creditCardCredentials) throws CardDoesNotHaveLimitException {
+        if (!creditCardCredentials.isRightCredentials())
+            throw new WrongCreditCardCredentialsException("Wrong credit card credentials");
         Integer statusCode = externalAPI.debit(creditCardCredentials, aPackage.getValue());
         if(statusCode == 200)
             user.setAPackage(aPackage);

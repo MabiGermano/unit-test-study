@@ -15,10 +15,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserServiceTest {
 
     private UserServiceImpl userService = new UserServiceImpl();
+    private GeneralInstances instances = new GeneralInstances();
 
     @Test
     public void deveCriarUsuarioCorretamente(){
-        User usuarioMock = UserRepository.getInstance().getById(0);
+        User usuarioMock = instances.user1;
         userService.criarUsuario(usuarioMock);
         User usuarioPersist = UserRepository.getInstance().getById(0);
 
@@ -29,8 +30,10 @@ class UserServiceTest {
 
     @Test
     public void deveDarErroAoCriarUsuarioSenhaComMenosDe8Caracteres(){
-        User usuarioMock = UserRepository.getInstance().getById(0);
-        PasswordException passwordException = assertThrows(PasswordException.class, () -> userService.criarUsuario(usuarioMock));
+        User usuarioMock = instances.user1;
+        usuarioMock.setPassword("e430");
+        PasswordException passwordException = assertThrows(PasswordException.class,
+                () -> userService.criarUsuario(usuarioMock));
 
         assertEquals(passwordException.getMessage(), "Senha com menos de 8 caracteres");
     }

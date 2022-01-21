@@ -34,4 +34,8 @@ public class UserRepository {
     public void update(User user) {
         users.add(user.getId(), user);
     }
+
+    public boolean containEmail(String email){
+        return users.stream().anyMatch(user -> email.equals(user.getEmail()));
+    }
 }

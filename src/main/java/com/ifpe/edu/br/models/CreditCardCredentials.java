@@ -14,4 +14,8 @@ public class CreditCardCredentials {
     private String holder;
     private Date dueDate;
     private String cvv;
+
+    public Boolean isRightCredentials() {
+        return false;
+    }
 }
